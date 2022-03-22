@@ -44,12 +44,12 @@ usernames = {}
 
 for i, user in enumerate(user_names):
 
-	# CREATING NAME OF USER
-	name = "user"+str(i+1)
+    	# CREATING NAME OF USER
+    name = f"user{str(i+1)}"
 
-	# STORING USER NAME AND DATA FRAMES TO DICTIONARY
-	user_all_data[name] = x1.get_group(user[0])
-	usernames[name] = user[0]
+    # STORING USER NAME AND DATA FRAMES TO DICTIONARY
+    user_all_data[name] = x1.get_group(user[0])
+    usernames[name] = user[0]
 
 
 # CREATING DATA SET FOR 
@@ -164,7 +164,7 @@ for itr in range(max_iters):
 	        x, y = data
 	        x, y = x.to(device), y.to(device)
 
-	        
+
 	        # get output
 	        targets = y
 	        y_pred = model(x)
@@ -207,7 +207,7 @@ plt.grid()
 plt.savefig("./results/loss.jpg", dpi=300, bbox_inches='tight')
 plt.show()
 
-print('Train accuracy: {}'.format(train_acc[-1]))
+print(f'Train accuracy: {train_acc[-1]}')
 
 # torch.save(model.state_dict(), "./results/q7_1_3_model_parameter.pkl")
 
@@ -234,7 +234,7 @@ for data in test_dataloader:
 
 test_acc = test_correct/total_test_samples
 
-print('Test accuracy: {}'.format(test_acc))
+print(f'Test accuracy: {test_acc}')
 
 # Train accuracy: 0.9994444444444445
 # Test accuracy: 0.8727777777777778

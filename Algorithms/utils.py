@@ -203,7 +203,7 @@ def plot_ROC(i, user, hit_rate_list, flase_alarm_rate_list, equal_error_index, z
 	plt.grid()
 	plt.legend(loc = 'lower right')
 
-	image_name = (str("{:02d}".format(i+1)) +'_'+ title+".jpg")
+	image_name = "{:02d}".format(i+1) + '_' + title + ".jpg"
 	image_path = os.path.join(folder_path_for_plots, image_name)
 	plt.savefig(image_path, dpi=300, bbox_inches='tight')
 	plt.close()
@@ -229,13 +229,13 @@ def search_optimal_threshold(user_score, anamoly_score):
 	zero_miss_flag = 0
 
 
+	# tmp_thresh = 0.6
+
+	# MISS RATE =  FREQ WITH WHICH IMPOSTERS ARE NOT DETECTED
+	# CALCULATE MISS RATE
+	imposter_user = anamoly_score.shape[0]
 	# LOOP OVER ALL THE THREASHOLD VALUES TO GET HIT AND MISS RATE
 	for i,tmp_thresh in enumerate(threshold):
-		# tmp_thresh = 0.6
-
-		# MISS RATE =  FREQ WITH WHICH IMPOSTERS ARE NOT DETECTED
-		# CALCULATE MISS RATE
-		imposter_user = anamoly_score.shape[0]
 		imposters_deceted = sum((anamoly_score>tmp_thresh)*1)
 		hit_rate = imposters_deceted/imposter_user
 		miss_rate = 1-hit_rate
@@ -270,11 +270,10 @@ def search_optimal_threshold(user_score, anamoly_score):
 		    error = tmp_error
 
 		# CALCULATE THE INDEX FOR ZERO MISS RATE
-		# print(i, miss_rate) 
-		if zero_miss_flag == 0:
-			if miss_rate >0:
-				zero_miss_rate_index = i
-				zero_miss_flag =1
+		# print(i, miss_rate)
+		if zero_miss_flag == 0 and miss_rate > 0:
+			zero_miss_rate_index = i
+			zero_miss_flag =1
 
 
 
@@ -290,60 +289,60 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                           normalize=False,
                           title=None,
                           cmap=plt.cm.Blues):
-    """
+	"""
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
     """
-    if not title:
-        if normalize:
-            title = 'Normalized confusion matrix'
-        else:
-            title = 'Confusion matrix, without normalization'
+	if not title:
+	    if normalize:
+	        title = 'Normalized confusion matrix'
+	    else:
+	        title = 'Confusion matrix, without normalization'
 
-    # Compute confusion matrix
-    cm = confusion_matrix(y_true, y_pred)
-    # Only use the labels that appear in the data
-    classes = classes[unique_labels(y_true, y_pred)]
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]*100
-        cm = cm.astype('int')
-        print("Normalized confusion matrix")
-    else:
-        print('Confusion matrix, without normalization')
+	# Compute confusion matrix
+	cm = confusion_matrix(y_true, y_pred)
+	# Only use the labels that appear in the data
+	classes = classes[unique_labels(y_true, y_pred)]
+	if normalize:
+	    cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]*100
+	    cm = cm.astype('int')
+	    print("Normalized confusion matrix")
+	else:
+	    print('Confusion matrix, without normalization')
 
-    print(cm)
-    # plt.figure(figsize=(15,4))
-    fig, ax = plt.subplots(figsize=(16,16))
-    im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
-    ax.figure.colorbar(im, ax=ax)
-    # We want to show all ticks...
-    ax.set(xticks=np.arange(cm.shape[1]),
-           yticks=np.arange(cm.shape[0]),
-           # ... and label them with the respective list entries
-           xticklabels=classes, yticklabels=classes,
-           title=title,
-           ylabel='True label',
-           xlabel='Predicted label')
+	print(cm)
+	# plt.figure(figsize=(15,4))
+	fig, ax = plt.subplots(figsize=(16,16))
+	im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
+	ax.figure.colorbar(im, ax=ax)
+	# We want to show all ticks...
+	ax.set(xticks=np.arange(cm.shape[1]),
+	       yticks=np.arange(cm.shape[0]),
+	       # ... and label them with the respective list entries
+	       xticklabels=classes, yticklabels=classes,
+	       title=title,
+	       ylabel='True label',
+	       xlabel='Predicted label')
 
-    # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-             rotation_mode="anchor")
+	# Rotate the tick labels and set their alignment.
+	plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+	         rotation_mode="anchor")
 
-    # Loop over data dimensions and create text annotations.
-    # fmt = '.2f' if normalize else 'd'
-    fmt = 'd' if normalize else 'd'
-    thresh = cm.max() / 2.
-    for i in range(cm.shape[0]):
-        for j in range(cm.shape[1]):
-            ax.text(j, i, format(cm[i, j], fmt),
-                    ha="center", va="center", fontsize=8,
-                    color="white" if cm[i, j] > thresh else "black")
-    fig.tight_layout()
-    np.set_printoptions(precision=2)
+	    # Loop over data dimensions and create text annotations.
+	    # fmt = '.2f' if normalize else 'd'
+	fmt = 'd'
+	thresh = cm.max() / 2.
+	for i in range(cm.shape[0]):
+	    for j in range(cm.shape[1]):
+	        ax.text(j, i, format(cm[i, j], fmt),
+	                ha="center", va="center", fontsize=8,
+	                color="white" if cm[i, j] > thresh else "black")
+	fig.tight_layout()
+	np.set_printoptions(precision=2)
 
-    plt.savefig("./conv_1d_confusionmatrix.jpg", dpi=300, bbox_inches='tight')
-    plt.show()
-    return ax,cm
+	plt.savefig("./conv_1d_confusionmatrix.jpg", dpi=300, bbox_inches='tight')
+	plt.show()
+	return ax,cm
 
 
 	

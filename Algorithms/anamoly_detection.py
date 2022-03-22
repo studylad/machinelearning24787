@@ -36,7 +36,7 @@ usernames = {}
 for i, user in enumerate(user_names):
 
 	# CREATING NAME OF USER
-	name = "user"+str(i+1)
+	name = f"user{str(i+1)}"
 
 	# STORING USER NAME AND DATA FRAMES TO DICTIONARY
 	user_all_data[name] = x1.get_group(user[0])
@@ -84,9 +84,8 @@ for i,user in enumerate(usernames):
 	# CALCULATE z_score IMPOSTER SCORE
 	anamoly_score, anamoly_max, anamoly_min = calculate_zscore_dist(anamoly, mean, std)
 	print(user+" impo score - " + str(anamoly_score.shape[0]) + " elemnts" )
-
 # -------------------------------------------------------------------------------
-	
+
 	# # CALCULATE MANHATTAN SCALED USER SCORE
 	# user_score, user_max, user_min = calculate_manhattan_scaled_dist(test, mean, mean_abs_dev)
 	# print(user+" test score - " + str(user_score.shape[0]) + " elemnts" )
@@ -146,8 +145,8 @@ error_rate_std = np.std(equal_error_rate_list)
 zero_miss_rate_avg = np.mean(zero_false_alarm_list)
 zero_miss_rate_std = np.std(zero_false_alarm_list)
 
-print("Equal error rate average = "+ str(error_rate_avg))
-print("Equal error rate STD = "+ str(error_rate_std))
+print(f"Equal error rate average = {str(error_rate_avg)}")
+print(f"Equal error rate STD = {str(error_rate_std)}")
 
-print("Zero miss false alarm rate average = "+ str(zero_miss_rate_avg))
-print("Zero miss false alarm rate STD = "+ str(zero_miss_rate_std))
+print(f"Zero miss false alarm rate average = {str(zero_miss_rate_avg)}")
+print(f"Zero miss false alarm rate STD = {str(zero_miss_rate_std)}")

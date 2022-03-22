@@ -45,12 +45,12 @@ usernames = {}
 
 for i, user in enumerate(user_names):
 
-	# CREATING NAME OF USER
-	name = "user"+str(i+1)
+    	# CREATING NAME OF USER
+    name = f"user{str(i+1)}"
 
-	# STORING USER NAME AND DATA FRAMES TO DICTIONARY
-	user_all_data[name] = x1.get_group(user[0])
-	usernames[name] = user[0]
+    # STORING USER NAME AND DATA FRAMES TO DICTIONARY
+    user_all_data[name] = x1.get_group(user[0])
+    usernames[name] = user[0]
 
 
 # CREATING DATA SET FOR 
